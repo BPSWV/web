@@ -1,0 +1,179 @@
+body {
+  background: #fff;
+  color: #222;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  font-size: 18px;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+}
+header {
+  background: #f8f8f8;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 20px 0 10px 0;
+  text-align: center;
+}
+.logo {
+  width: 80px;
+  margin-bottom: 10px;
+}
+header h1 {
+  font-size: 2.2rem;
+  margin: 0 0 10px 0;
+  letter-spacing: 1px;
+}
+nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 auto;
+  display: inline-block;
+}
+nav li {
+  display: inline-block;
+  margin: 0 15px;
+}
+.nav-link {
+  font-size: 1.1rem;
+  text-decoration: none;
+  color: #2a4a8a;
+  padding: 8px 16px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.nav-link.active,
+.nav-link:hover {
+  background: #e3eaf7;
+  color: #1a2e50;
+}
+main {
+  max-width: 900px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.hero-img {
+  width: 320px;
+  max-width: 100%;
+  border-radius: 8px;
+  margin-right: 24px;
+  margin-bottom: 10px;
+}
+.hero-text {
+  flex: 1;
+  min-width: 220px;
+}
+.quick-info {
+  background: #f3f7fa;
+  border-left: 5px solid #2a4a8a;
+  padding: 16px;
+  margin-bottom: 40px;
+  border-radius: 5px;
+}
+section {
+  margin-bottom: 50px;
+}
+h2 {
+  font-size: 2rem;
+  color: #2a4a8a;
+  margin-top: 0;
+}
+h3 {
+  font-size: 1.3rem;
+  margin-top: 24px;
+  color: #1a2e50;
+}
+.about-content, .worship-content {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 24px;
+  margin-bottom: 20px;
+}
+.about-img, .worship-img {
+  width: 260px;
+  max-width: 100%;
+  border-radius: 8px;
+}
+.about-content > div, .worship-content > div {
+  flex: 1;
+  min-width: 220px;
+}
+.button {
+  display: inline-block;
+  background: #2a4a8a;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-top: 12px;
+  text-decoration: none;
+  font-size: 1.1rem;
+  transition: background 0.2s;
+}
+.button:hover {
+  background: #1a2e50;
+}
+.gallery {
+  margin-top: 24px;
+}
+.gallery-row {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+.gallery-img {
+  width: 180px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+.contact-info {
+  background: #f8f8f8;
+  padding: 18px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+}
+.contact-info a {
+  color: #2a4a8a;
+  text-decoration: underline;
+}
+.map-container {
+  text-align: center;
+}
+.map-img {
+  width: 350px;
+  max-width: 100%;
+  border-radius: 6px;
+  border: 1px solid #e0e0e0;
+}
+.sitemap-list {
+  list-style: none;
+  padding-left: 0;
+  font-size: 1.1rem;
+}
+.sitemap-list li {
+  margin-bottom: 8px;
+}
+footer {
+  background: #f8f8f8;
+  text-align: center;
+  padding: 14px 0;
+  font-size: 1rem;
+  color: #888;
+  border-top: 1px solid #e0e0e0;
+}
+@media (max-width: 700px) {
+  .hero, .about-content, .worship-content, .gallery-row {
+    flex-direction: column;
+    align-items: center;
+  }
+  .about-img, .worship-img, .gallery-img, .map-img {
+    width: 100%;
+    height: auto;
+  }
+}
