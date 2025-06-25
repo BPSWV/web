@@ -14,26 +14,15 @@
   <link rel="canonical" href="https://www.bloomerypresbyterian.org">
   <link rel="stylesheet" href="style.css">
 </head>
-  <body>
+<body>
   <div style="background-color: #004080; color: white; text-align: center; padding: 10px 0; font-weight: bold; font-size: 1.1rem;">
     On July 27, 2025, we're celebrating the Church's 200 year anniversary — all are welcome!
   </div>
   <header>
     <img src="images/church-logo.png" alt="Bloomery Presbyterian Church Logo" class="logo">
     <h1>Bloomery Presbyterian Church</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="nav-link active">Home</a></li>
-        <li><a href="about.html" class="nav-link">About & History</a></li>
-        <li><a href="worship.html" class="nav-link">Worship & Services</a></li>
-        <li><a href="contact.html" class="nav-link">Contact Us</a></li>
-        <li>
-          <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener">
-            <img src="images/youtube-icon.png" alt="Bloomery Presbyterian Church YouTube Channel" style="width:24px;vertical-align:middle;"> YouTube
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <!-- Nav placeholder -->
+    <div id="nav-placeholder"></div>
   </header>
   <main>
     <section id="home">
@@ -83,6 +72,26 @@
       </a>
     </p>
   </footer>
+
+  <!-- Load nav.html into nav-placeholder -->
+  <script>
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('nav-placeholder').innerHTML = data;
+
+        // Highlight active nav link based on current page
+        const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+        const navLinks = document.querySelectorAll('#nav-placeholder a.nav-link');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      })
+      .catch(error => console.error('Error loading navigation:', error));
+  </script>
+
   <script src="app.js"></script>
 </body>
 </html>
