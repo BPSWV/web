@@ -8,29 +8,18 @@
   <meta name="keywords" content="Contact Bloomery Presbyterian Church, Bloomery WV, Hampshire County, West Virginia church, Presbyterian, church address, church phone, church email, location, map, Pastor David Omps">
   <meta property="og:title" content="Contact Us | Bloomery Presbyterian Church">
   <meta property="og:description" content="Get in touch with Bloomery Presbyterian Church in Bloomery, WV. Find our address, phone, email, and map.">
-  <meta property="og:image" content="https://www.bloomerypresbyterian.orgm/images/church-logo.png">
+  <meta property="og:image" content="https://www.bloomerypresbyterian.org/images/church-logo.png">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://www.bloomerypresbyterian.org/contact.html">
-  <link rel="canonical" href="https://ywww.bloomerypresbyterian.org/contact.html">
+  <link rel="canonical" href="https://www.bloomerypresbyterian.org/contact.html">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header>
     <img src="images/church-logo.png" alt="Bloomery Presbyterian Church Logo" class="logo">
     <h1>Bloomery Presbyterian Church</h1>
-    <nav>
-      <ul>
-        <li><a href="index.html" class="nav-link">Home</a></li>
-        <li><a href="about.html" class="nav-link">About & History</a></li>
-        <li><a href="worship.html" class="nav-link">Worship & Services</a></li>
-        <li><a href="contact.html" class="nav-link active">Contact Us</a></li>
-        <li>
-          <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener">
-            <img src="images/youtube-icon.png" alt="Bloomery Presbyterian Church YouTube Channel" style="width:24px;vertical-align:middle;"> YouTube
-          </a>
-        </li>
-      </ul>
-    </nav>
+    <!-- Nav placeholder -->
+    <div id="nav-placeholder"></div>
   </header>
   <main>
     <h2>Contact Us</h2>
@@ -46,19 +35,18 @@
         <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener">Bloomery Presbyterian Church YouTube Channel</a>
       </p>
     </div>
-    <div class="map-container">
-     <div class="map-container" style="text-align:center; margin-top:20px;">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d2849.960660486827!2d-78.37550314486455!3d39.38718346934611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89b58983abf8166d%3A0x5ef35091e7d3681c!2sWV-127%2C%20Capon%20Bridge%2C%20WV%2026711!3m2!1d39.3873663!2d-78.3737684!5e1!3m2!1sen!2sus!4v1750787997320!5m2!1sen!2sus" 
-      width="600" 
-      height="450" 
-      style="border:0;" 
-      allowfullscreen="" 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
-</main>
+    <div class="map-container" style="text-align:center; margin-top:20px;">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d2849.960660486827!2d-78.37550314486455!3d39.38718346934611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89b58983abf8166d%3A0x5ef35091e7d3681c!2sWV-127%2C%20Capon%20Bridge%2C%20WV%2026711!3m2!1d39.3873663!2d-78.3737684!5e1!3m2!1sen!2sus!4v1750787997320!5m2!1sen!2sus" 
+        width="600" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
+    </div>
+  </main>
   <footer>
     <p>&copy; 2025 Bloomery Presbyterian Church. All rights reserved.</p>
     <p>
@@ -67,6 +55,26 @@
       </a>
     </p>
   </footer>
+
+  <!-- Load nav.html into nav-placeholder -->
+  <script>
+    fetch('nav.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('nav-placeholder').innerHTML = data;
+
+        // Highlight active nav link based on current page
+        const currentPage = window.location.pathname.split('/').pop() || 'contact.html';
+        const navLinks = document.querySelectorAll('#nav-placeholder a.nav-link');
+        navLinks.forEach(link => {
+          if (link.getAttribute('href') === currentPage) {
+            link.classList.add('active');
+          }
+        });
+      })
+      .catch(error => console.error('Error loading navigation:', error));
+  </script>
+
   <script src="app.js"></script>
 </body>
 </html>
