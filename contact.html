@@ -13,6 +13,34 @@
   <meta property="og:url" content="https://www.bloomerypresbyterian.org/contact.html">
   <link rel="canonical" href="https://www.bloomerypresbyterian.org/contact.html">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Small local styles for the pastor photo layout -->
+  <style>
+    .pastor-container {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 8px 0;
+    }
+    .pastor-photo {
+      width: 150px;
+      max-width: 25%;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      object-fit: cover;
+    }
+    @media (max-width: 600px) {
+      .pastor-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .pastor-photo {
+        width: 100%;
+        max-width: 100%;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -27,8 +55,16 @@
       <p><strong>Address:</strong> 127 Bloomery Pike, PO Box 27, Bloomery, WV 26817</p>
       <p><strong>Phone:</strong> <a href="tel:3049475551">304-947-5551</a></p>
       <p><strong>Email (General):</strong> <a href="mailto:nancybender@frontiernet.net">nancybender@frontiernet.net</a></p>
-      <p><strong>Pastor:</strong> CRE David Omps<br>
-         <strong>Email:</strong> <a href="mailto:davidomps@citlink.net">davidomps@citlink.net</a></p>
+
+      <!-- Pastor info with photo -->
+      <div class="pastor-container">
+        <img src="images/pastor.jpeg" alt="pastor david omps and his wife brenda" class="pastor-photo">
+        <div>
+          <p><strong>Pastor:</strong> CRE David Omps<br>
+             <strong>Email:</strong> <a href="mailto:davidomps@citlink.net">davidomps@citlink.net</a></p>
+        </div>
+      </div>
+
       <p>For questions, prayer requests, or to learn more about our church in Bloomery, West Virginia, please reach out or visit us in person. We welcome all visitors and inquiries from Hampshire County and beyond.</p>
       <p>
         <strong>Watch our services online:</strong>
