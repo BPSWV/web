@@ -2,17 +2,107 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>About & History | Bloomery Presbyterian Church</title>
+  <title>Contact Us | Bloomery Presbyterian Church</title>
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <meta name="description" content="Discover the rich history of Bloomery Presbyterian Church in Bloomery, West Virginia. Established in 1825, our church stands as a testament to nearly two centuries of faith, community, and heritage in Hampshire County.">
-  <meta name="keywords" content="Bloomery Presbyterian Church, Bloomery WV, Hampshire County, West Virginia church, Presbyterian, church history, Capon Valley, historic church, Christian community">
-  <meta property="og:title" content="About & History | Bloomery Presbyterian Church">
-  <meta property="og:description" content="Learn about the nearly 200-year history of Bloomery Presbyterian Church in Bloomery, West Virginia.">
-  <meta property="og:image" content="https://www.bloomerypresbyterian.org/images/historic-photo.jpg">
+  <meta name="description" content="Contact Bloomery Presbyterian Church in Bloomery, West Virginia. Find our address, phone number, email, and location map. We welcome your questions, prayer requests, and visits.">
+  <meta name="keywords" content="Contact Bloomery Presbyterian Church, Bloomery WV, Hampshire County, West Virginia church, Presbyterian, church address, church phone, church email, location, map, Pastor David Omps">
+  <meta property="og:title" content="Contact Us | Bloomery Presbyterian Church">
+  <meta property="og:description" content="Get in touch with Bloomery Presbyterian Church in Bloomery, WV. Find our address, phone, email, and map.">
+  <meta property="og:image" content="https://www.bloomerypresbyterian.org/images/church-logo.png">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="https://www.bloomerypresbyterian.org/about.html">
-  <link rel="canonical" href="https://www.bloomerypresbyterian.org/about.html">
+  <meta property="og:url" content="https://www.bloomerypresbyterian.org/contact.html">
+  <link rel="canonical" href="https://www.bloomerypresbyterian.org/contact.html">
   <link rel="stylesheet" href="style.css">
+
+  <!-- Local styles for the pastor photo layout, caption, and lightbox -->
+  <style>
+    .pastor-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin: 8px 0;
+    }
+    .pastor-figure {
+      margin: 0;
+      text-align: center;
+      max-width: 150px;
+      flex-shrink: 0;
+    }
+    .pastor-photo {
+      width: 150px;
+      height: auto;
+      border-radius: 6px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+    .pastor-photo:focus {
+      outline: 3px solid #6ca0ff;
+      outline-offset: 3px;
+    }
+    .pastor-caption {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.2;
+    }
+    .pastor-details {
+      min-width: 0;
+    }
+
+    /* Lightbox styles */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      padding: 20px;
+    }
+    .lightbox.show {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90%;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      cursor: zoom-out;
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: #fff;
+      font-size: 1.25rem;
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .lightbox .close-btn:focus {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
+    @media (max-width: 600px) {
+      .pastor-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .pastor-figure {
+        max-width: 100%;
+      }
+      .pastor-photo {
+        width: 100%;
+        max-width: 300px;
+      }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -22,51 +112,58 @@
     <div id="nav-placeholder"></div>
   </header>
   <main>
-    <h2>About & History</h2>
-    <div class="about-content">
-      <img src="images/church1910.png" alt="Historic Bloomery Presbyterian Church, Bloomery WV (circa 1910)" class="about-img">
-      <div>
-        <p>
-          <strong>Bloomery Presbyterian Church</strong>, established in 1825, is one of the oldest and most enduring religious institutions in Hampshire County, West Virginia. For nearly two centuries, our historic white wooden church has served as a cornerstone of faith, community, and cultural heritage in the Capon River valley, weathering the challenges of frontier life, industrial change, the Civil War, and modern transformation while maintaining its vital role in the spiritual life of the region.
-        </p>
-        <p>
-          <strong>Origins and Early Settlement:</strong> The founding of Bloomery Presbyterian Church reflects the broader pattern of Scotch-Irish migration to western Virginia in the early 18th century. These Presbyterian settlers, seeking fertile land and religious freedom, brought with them a strong tradition of congregational worship and community-building. The Capon River valley, where Bloomery is located, became home to these families as they moved from Pennsylvania into the Shenandoah Valley and beyond.
-        </p>
-        <p>
-          <strong>Bloomery’s Iron Heritage:</strong> The community’s name comes from the iron bloomery operations that made Bloomery a significant early industrial center. By 1825, the area was thriving with iron production, providing the economic foundation for establishing lasting institutions like our church. The proximity of iron ore, timber, limestone, and water power made Bloomery ideal for industry and community growth.
-        </p>
-        <p>
-          <strong>Early Years and Growth:</strong> The church was constructed as a substantial two-story meeting house, later expanded to meet the needs of a growing congregation. Affiliated from the beginning with Winchester Presbytery, Bloomery Presbyterian Church benefited from circuit-riding ministers who served the region’s scattered settlements and ensured the congregation remained connected to Presbyterian traditions and governance.
-        </p>
-        <p>
-          <strong>Architectural Heritage:</strong> Our building exemplifies early 19th-century rural Presbyterian architecture—wooden clapboard siding, a steep metal roof, a white cupola, and a simple, functional design. Adjacent to the church is a historic cemetery with graves dating back to the 1830s, offering a tangible link to the earliest members of our community and reflecting the church’s role as a center of both worship and local heritage.
-        </p>
-        <p>
-          <strong>Historical Milestones:</strong> In 1926, the church celebrated its centennial with a gathering of 800 people, highlighting its ongoing importance to the region. Dr. Charles D. Gilkeson’s historical account at this event traced the church’s roots to the Scotch-Irish migration and detailed the challenges faced by early settlers, including frontier hardships and the impact of the Civil War.
-        </p>
-        <p>
-          <strong>Surviving the Civil War and Beyond:</strong> Like many Hampshire County institutions, Bloomery Presbyterian Church endured the disruptions of the Civil War and the decline of the local iron industry. Despite these challenges, the congregation remained active, adapting to economic and social changes while continuing to serve the valley’s families.
-        </p>
-        <p>
-          <strong>Modern Era:</strong> Today, Bloomery Presbyterian Church is an active member of the Shenandoah Presbytery of the Presbyterian Church (USA). We continue to preserve our historic building and cemetery, welcoming all who seek spiritual growth, community, and a connection to a living tradition that spans generations.
-        </p>
-        <p>
-          <strong>Legacy:</strong> As one of Hampshire County’s oldest continuously operating churches, Bloomery Presbyterian Church is more than a place of worship—it is a community center, educational institution, and a living testament to the faith, perseverance, and heritage of the Capon Valley. Our story is one of adaptation, resilience, and the enduring importance of faith in sustaining community across generations.
-        </p>
-        <a href="contact.html" class="button">Learn More or Visit Us</a>
+    <h2>Contact Us</h2>
+    <div class="contact-info">
+      <p><strong>Address:</strong> 127 Bloomery Pike, PO Box 27, Bloomery, WV 26817</p>
+      <p><strong>Phone:</strong> <a href="tel:3049475551">304-947-5551</a></p>
+      <p><strong>Email (General):</strong> <a href="mailto:nancybender@frontiernet.net">nancybender@frontiernet.net</a></p>
+
+      <!-- Pastor info with photo + caption -->
+      <div class="pastor-wrapper">
+        <figure class="pastor-figure" aria-hidden="false" role="group" aria-label="Photo of Pastor David Omps and his wife Brenda">
+          <!-- tabindex added so keyboard users can focus and open with Enter/Space -->
+          <img src="images/pastor.jpeg"
+               alt="pastor david omps and his wife brenda"
+               class="pastor-photo"
+               id="pastor-photo"
+               role="button"
+               tabindex="0"
+               aria-describedby="pastor-caption">
+          <figcaption id="pastor-caption" class="pastor-caption">Pastor David Omps CRE and his wife Brenda.</figcaption>
+        </figure>
+
+        <div class="pastor-details">
+          <p><strong>Pastor:</strong> CRE David Omps<br>
+             <strong>Email:</strong> <a href="mailto:davidomps@citlink.net">davidomps@citlink.net</a></p>
+        </div>
       </div>
+
+      <p>For questions, prayer requests, or to learn more about our church in Bloomery, West Virginia, please reach out or visit us in person. We welcome all visitors and inquiries from Hampshire County and beyond.</p>
+      <p>
+        <strong>Watch our services online:</strong>
+        <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener">Bloomery Presbyterian Church YouTube Channel</a>
+      </p>
     </div>
-    <div class="gallery">
-      <h3>Church Life & Memories</h3>
-      <div class="gallery-row">
-        <img src="images/church_entry.png" alt="Church Entry" class="gallery-img">
-        <img src="images/church_cem.png" alt="Church Cemetery" class="gallery-img">
-        <img src="images/churchbanner.jpg" alt="Bloomery Banner" class="gallery-img">
-        <img src="images/interior-hist.jpg" alt="Display of the Church's history" class="gallery-img">
-        
-      </div>
+
+    <div class="map-container" style="text-align:center; margin-top:20px;">
+      <iframe 
+        src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d2849.960660486827!2d-78.37550314486455!3d39.38718346934611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89b58983abf8166d%3A0x5ef35091e7d3681c!2sWV-127%2C%20Capon%20Bridge%2C%20WV%2026711!3m2!1d39.3873663!2d-78.3737684!5e1!3m2!1sen!2sus!4v1750787997320!5m2!1sen!2sus" 
+        width="600" 
+        height="450" 
+        style="border:0;" 
+        allowfullscreen="" 
+        loading="lazy" 
+        referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
     </div>
   </main>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Enlarged image view">
+    <button id="lightbox-close" class="close-btn" aria-label="Close enlarged image">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <footer>
     <p>&copy; 2025 Bloomery Presbyterian Church. All rights reserved.</p>
     <p>
@@ -84,7 +181,7 @@
         document.getElementById('nav-placeholder').innerHTML = data;
 
         // Highlight active nav link based on current page
-        const currentPage = window.location.pathname.split('/').pop() || 'about.html';
+        const currentPage = window.location.pathname.split('/').pop() || 'contact.html';
         const navLinks = document.querySelectorAll('#nav-placeholder a.nav-link');
         navLinks.forEach(link => {
           if (link.getAttribute('href') === currentPage) {
@@ -93,6 +190,63 @@
         });
       })
       .catch(error => console.error('Error loading navigation:', error));
+  </script>
+
+  <!-- Lightbox behavior script -->
+  <script>
+    (function() {
+      const photo = document.getElementById('pastor-photo');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      if (!photo || !lightbox || !lightboxImg || !closeBtn) return;
+
+      function openLightbox() {
+        lightboxImg.src = photo.src;
+        lightboxImg.alt = photo.alt;
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden', 'false');
+        // Prevent page scroll while open
+        document.body.style.overflow = 'hidden';
+        // Move focus to close button for keyboard users
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('show');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        // Return focus to the photo
+        photo.focus();
+      }
+
+      // Open on click
+      photo.addEventListener('click', openLightbox);
+
+      // Open on Enter or Space key
+      photo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox();
+        }
+      });
+
+      // Close controls
+      closeBtn.addEventListener('click', closeLightbox);
+      // Close when clicking outside the image (on backdrop)
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxImg) {
+          closeLightbox();
+        }
+      });
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+          closeLightbox();
+        }
+      });
+    })();
   </script>
 
   <script src="app.js"></script>
