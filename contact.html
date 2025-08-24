@@ -14,30 +14,92 @@
   <link rel="canonical" href="https://www.bloomerypresbyterian.org/contact.html">
   <link rel="stylesheet" href="style.css">
 
-  <!-- Small local styles for the pastor photo layout -->
+  <!-- Local styles for the pastor photo layout, caption, and lightbox -->
   <style>
-    .pastor-container {
+    .pastor-wrapper {
       display: flex;
       align-items: center;
       gap: 16px;
       margin: 8px 0;
     }
+    .pastor-figure {
+      margin: 0;
+      text-align: center;
+      max-width: 150px;
+      flex-shrink: 0;
+    }
     .pastor-photo {
       width: 150px;
-      max-width: 25%;
       height: auto;
       border-radius: 6px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
       object-fit: cover;
+      display: block;
+      cursor: zoom-in;
     }
+    .pastor-photo:focus {
+      outline: 3px solid #6ca0ff;
+      outline-offset: 3px;
+    }
+    .pastor-caption {
+      margin-top: 8px;
+      font-size: 0.95rem;
+      color: #444;
+      line-height: 1.2;
+    }
+    .pastor-details {
+      min-width: 0;
+    }
+
+    /* Lightbox styles */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      background: rgba(0,0,0,0.85);
+      z-index: 1000;
+      padding: 20px;
+    }
+    .lightbox.show {
+      display: flex;
+    }
+    .lightbox img {
+      max-width: 95%;
+      max-height: 90%;
+      border-radius: 6px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      cursor: zoom-out;
+    }
+    .lightbox .close-btn {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      background: rgba(0,0,0,0.4);
+      border: none;
+      color: #fff;
+      font-size: 1.25rem;
+      padding: 8px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    .lightbox .close-btn:focus {
+      outline: 3px solid #fff;
+      outline-offset: 3px;
+    }
+
     @media (max-width: 600px) {
-      .pastor-container {
+      .pastor-wrapper {
         flex-direction: column;
         align-items: flex-start;
       }
+      .pastor-figure {
+        max-width: 100%;
+      }
       .pastor-photo {
         width: 100%;
-        max-width: 100%;
+        max-width: 300px;
       }
     }
   </style>
@@ -56,10 +118,21 @@
       <p><strong>Phone:</strong> <a href="tel:3049475551">304-947-5551</a></p>
       <p><strong>Email (General):</strong> <a href="mailto:nancybender@frontiernet.net">nancybender@frontiernet.net</a></p>
 
-      <!-- Pastor info with photo -->
-      <div class="pastor-container">
-        <img src="images/pastor.jpeg" alt="pastor david omps and his wife brenda" class="pastor-photo">
-        <div>
+      <!-- Pastor info with photo + caption -->
+      <div class="pastor-wrapper">
+        <figure class="pastor-figure" aria-hidden="false" role="group" aria-label="Photo of Pastor David Omps and his wife Brenda">
+          <!-- tabindex added so keyboard users can focus and open with Enter/Space -->
+          <img src="images/pastor.jpeg"
+               alt="pastor david omps and his wife brenda"
+               class="pastor-photo"
+               id="pastor-photo"
+               role="button"
+               tabindex="0"
+               aria-describedby="pastor-caption">
+          <figcaption id="pastor-caption" class="pastor-caption">Pastor David Omps CRE and his wife Brenda.</figcaption>
+        </figure>
+
+        <div class="pastor-details">
           <p><strong>Pastor:</strong> CRE David Omps<br>
              <strong>Email:</strong> <a href="mailto:davidomps@citlink.net">davidomps@citlink.net</a></p>
         </div>
@@ -71,6 +144,7 @@
         <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener">Bloomery Presbyterian Church YouTube Channel</a>
       </p>
     </div>
+
     <div class="map-container" style="text-align:center; margin-top:20px;">
       <iframe 
         src="https://www.google.com/maps/embed?pb=!1m23!1m12!1m3!1d2849.960660486827!2d-78.37550314486455!3d39.38718346934611!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!4m8!3e6!4m0!4m5!1s0x89b58983abf8166d%3A0x5ef35091e7d3681c!2sWV-127%2C%20Capon%20Bridge%2C%20WV%2026711!3m2!1d39.3873663!2d-78.3737684!5e1!3m2!1sen!2sus!4v1750787997320!5m2!1sen!2sus" 
@@ -83,6 +157,13 @@
       </iframe>
     </div>
   </main>
+
+  <!-- Lightbox overlay -->
+  <div id="lightbox" class="lightbox" role="dialog" aria-modal="true" aria-hidden="true" aria-label="Enlarged image view">
+    <button id="lightbox-close" class="close-btn" aria-label="Close enlarged image">✕</button>
+    <img id="lightbox-img" src="" alt="">
+  </div>
+
   <footer>
     <p>&copy; 2025 Bloomery Presbyterian Church. All rights reserved.</p>
     <p>
@@ -109,6 +190,63 @@
         });
       })
       .catch(error => console.error('Error loading navigation:', error));
+  </script>
+
+  <!-- Lightbox behavior script -->
+  <script>
+    (function() {
+      const photo = document.getElementById('pastor-photo');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const closeBtn = document.getElementById('lightbox-close');
+
+      if (!photo || !lightbox || !lightboxImg || !closeBtn) return;
+
+      function openLightbox() {
+        lightboxImg.src = photo.src;
+        lightboxImg.alt = photo.alt;
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden', 'false');
+        // Prevent page scroll while open
+        document.body.style.overflow = 'hidden';
+        // Move focus to close button for keyboard users
+        closeBtn.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('show');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+        // Return focus to the photo
+        photo.focus();
+      }
+
+      // Open on click
+      photo.addEventListener('click', openLightbox);
+
+      // Open on Enter or Space key
+      photo.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openLightbox();
+        }
+      });
+
+      // Close controls
+      closeBtn.addEventListener('click', closeLightbox);
+      // Close when clicking outside the image (on backdrop)
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox || e.target === lightboxImg) {
+          closeLightbox();
+        }
+      });
+      // Close on Escape
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lightbox.classList.contains('show')) {
+          closeLightbox();
+        }
+      });
+    })();
   </script>
 
   <script src="app.js"></script>
