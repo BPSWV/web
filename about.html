@@ -14,30 +14,122 @@
   <link rel="canonical" href="https://www.bloomerypresbyterian.org/about.html">
   <link rel="stylesheet" href="style.css">
 
-  <!-- Inline styles specific to the interactive side gallery -->
+  <!-- Polished styles for an inviting, modern, historic feel -->
   <style>
-    /* Layout tweaks */
-    .about-content { display: flex; gap: 20px; align-items: flex-start; flex-wrap: wrap; }
-    .about-img { max-width: 440px; width: 100%; height: auto; border-radius: 6px; }
-
-    /* Side gallery (desktop) */
+    :root {
+      --primary: #2b6ef6;
+      --secondary: #8aa8ff;
+      --bg: #f6faff;
+      --text: #2b2222;
+      --header-bg: #fffdfa;
+      --footer-bg: #f3f6fc;
+      --border: #e1e4ea;
+      --shadow: 0 6px 20px rgba(0,0,0,0.12);
+      --radius: 10px;
+    }
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+    header {
+      background: var(--header-bg);
+      box-shadow: var(--shadow);
+      padding: 32px 0 18px 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-bottom: 1px solid var(--border);
+    }
+    .logo {
+      width: 62px; height: 62px;
+      margin-bottom: 8px;
+      border-radius: 16px;
+      box-shadow: 0 2px 8px rgba(50,70,100,.05);
+      background: #fff;
+      padding: 5px;
+    }
+    h1 {
+      margin: 0 0 5px 0;
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      letter-spacing: 0.03em;
+      text-shadow: 0 2px 2px #eef2f8;
+    }
+    h2, h3 {
+      color: var(--primary);
+      margin: 1.5em 0 1em 0;
+      font-weight: 600;
+    }
+    .about-content {
+      display: flex;
+      gap: 36px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 36px;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 38px 32px 24px 32px;
+    }
+    .about-img {
+      max-width: 330px;
+      width: 100%;
+      height: auto;
+      border-radius: var(--radius);
+      box-shadow: 0 4px 14px rgba(120,120,120,0.07);
+      border: 1.5px solid var(--border);
+    }
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 34px 16px 40px 16px;
+    }
+    .button {
+      display: inline-block;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      color: #fff;
+      padding: 14px 38px;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 1.1rem;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(34,60,220,0.07);
+      cursor: pointer;
+      letter-spacing: 0.04em;
+      transition: background .2s, transform .18s;
+      margin-top: 38px;
+      text-decoration: none;
+    }
+    .button:hover,
+    .button:focus {
+      background: var(--secondary);
+      color: #fff;
+      transform: translateY(-2px) scale(1.045);
+      outline: none;
+    }
     .side-gallery {
       position: fixed;
-      right: 18px;
+      right: 30px;
       top: 120px;
-      width: 120px;
+      width: 124px;
       max-height: calc(100vh - 160px);
       overflow-y: auto;
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      padding: 8px;
-      background: rgba(255,255,255,0.98);
-      border-radius: 8px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.12);
+      gap: 14px;
+      padding: 9px;
+      background: rgba(255, 255, 255, 0.96);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       z-index: 900;
+      border: 1.5px solid var(--border);
     }
-
     .side-gallery .thumb {
       width: 100%;
       display: block;
@@ -45,98 +137,117 @@
       overflow: hidden;
       cursor: pointer;
       border: 2px solid transparent;
-      transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
+      background: #f5f7fa;
+      box-shadow: 0 2px 8px rgba(40,80,180,0.075);
+      transition: transform .15s, border-color .15s, box-shadow .15s;
     }
     .side-gallery .thumb img {
       display: block;
       width: 100%;
       height: auto;
       object-fit: cover;
+      border-radius: 5px;
     }
     .side-gallery .thumb:focus,
     .side-gallery .thumb:hover {
-      transform: translateY(-4px);
-      border-color: #8aa8ff;
-      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      transform: translateY(-4px) scale(1.03);
+      border-color: var(--secondary);
+      box-shadow: 0 7px 20px rgba(67,100,210,0.13);
       outline: none;
     }
-
-    /* Highlight current thumbnail */
     .side-gallery .thumb.active {
-      border-color: #2b6ef6;
-      box-shadow: 0 10px 24px rgba(43,110,246,0.15);
-      transform: translateY(-6px) scale(1.02);
+      border-color: var(--primary);
+      box-shadow: 0 12px 32px rgba(43,110,246,0.18);
+      transform: translateY(-6px) scale(1.04);
     }
-
-    /* Mobile: make gallery inline horizontally */
     @media (max-width: 900px) {
+      .about-content { flex-direction: column; gap: 26px; padding: 18px 4px; }
+      .about-img { margin: 0 auto; }
       .side-gallery {
         position: static;
         width: 100%;
         max-height: none;
         flex-direction: row;
         overflow-x: auto;
-        padding: 6px 8px;
+        padding: 5px 4px;
         gap: 8px;
-        margin: 12px 0;
+        margin: 16px 0;
         box-shadow: none;
+        border: none;
         background: transparent;
       }
-      .side-gallery .thumb { width: auto; min-width: 120px; }
+      .side-gallery .thumb { width: auto; min-width: 114px; }
       main { padding-right: 0; }
     }
-
-    /* Lightbox overlay */
     .gallery-lightbox {
       position: fixed;
       inset: 0;
       display: none;
       align-items: center;
       justify-content: center;
-      background: rgba(0,0,0,0.9);
+      background: rgba(32,48,88,0.92);
       z-index: 10000;
       padding: 20px;
     }
     .gallery-lightbox.show { display: flex; }
     .gallery-lightbox img {
-      max-width: 95%;
-      max-height: 90%;
-      border-radius: 6px;
-      box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+      max-width: 96vw;
+      max-height: 90vh;
+      border-radius: var(--radius);
+      box-shadow: 0 14px 50px rgba(0,0,0,0.41);
     }
     .gallery-lightbox .close-btn {
       position: absolute;
       top: 18px;
       right: 18px;
-      background: rgba(0,0,0,0.45);
+      background: rgba(42,56,120,0.33);
       border: none;
       color: #fff;
-      font-size: 1.25rem;
-      padding: 8px 10px;
-      border-radius: 4px;
+      font-size: 1.4rem;
+      padding: 9px 13px;
+      border-radius: 3px;
       cursor: pointer;
+      font-weight: bold;
     }
     .gallery-lightbox .nav-btn {
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
-      background: rgba(0,0,0,0.35);
+      background: rgba(56,56,99,0.22);
       border: none;
       color: #fff;
-      font-size: 1.75rem;
-      padding: 8px 12px;
+      font-size: 2.0rem;
+      padding: 8px 15px;
       border-radius: 4px;
       cursor: pointer;
     }
     .gallery-lightbox .nav-btn.prev { left: 18px; }
     .gallery-lightbox .nav-btn.next { right: 18px; }
-
     .gallery-caption {
-      margin-top: 10px;
-      color: #eee;
-      font-size: 0.95rem;
+      margin-top: 13px;
+      color: #d9e4ff;
+      font-size: 1.11rem;
       text-align: center;
+      text-shadow: 0px 2px 8px #24337a88;
     }
+    footer {
+      background: var(--footer-bg);
+      border-top: 1px solid var(--border);
+      padding: 26px 0 15px 0;
+      margin-top: 62px;
+      text-align: center;
+      color: #5c6070;
+      font-size: 1.01rem;
+      box-shadow: 0 -3px 12px rgba(0,0,0,0.04);
+    }
+    footer a {
+      text-decoration: none;
+      color: var(--primary);
+      font-weight: 500;
+      transition: color .14s;
+    }
+    footer a:hover { color: #3559b8; text-decoration: underline; }
+    footer img { margin-right: 5px; vertical-align: middle; }
   </style>
 </head>
 <body>
@@ -186,7 +297,6 @@
     <div class="gallery" aria-labelledby="gallery-heading">
       <h3 id="gallery-heading">Church Life & Memories</h3>
       <div class="gallery-row" style="display:none;" aria-hidden="true">
-        <!-- original non-interactive row left in place but hidden on wide view -->
         <img src="images/church_entry.png" alt="Church Entry" class="gallery-img">
         <img src="images/church_cem.png" alt="Church Cemetery" class="gallery-img">
         <img src="images/churchbanner.jpg" alt="Bloomery Banner" class="gallery-img">
@@ -196,7 +306,6 @@
 
     <!-- Side gallery thumbnails (desktop) -->
     <div id="sideGallery" class="side-gallery" aria-label="Photo gallery: thumbnails" tabindex="0">
-      <!-- Thumbnails: add or remove images as needed -->
       <button class="thumb" data-index="0" data-caption="Church Entry" aria-label="Open Church Entry image">
         <img src="images/church_entry.png" alt="Church Entry">
       </button>
@@ -209,9 +318,7 @@
       <button class="thumb" data-index="3" data-caption="Historic interior display" aria-label="Open Historic interior display image">
         <img src="images/interior-hist.jpg" alt="Display of the Church's history">
       </button>
-      <!-- Add more thumbs below if you have more images -->
     </div>
-
   </main>
 
   <!-- Lightbox overlay for full-size viewing -->
@@ -238,8 +345,6 @@
       .then(response => response.text())
       .then(data => {
         document.getElementById('nav-placeholder').innerHTML = data;
-
-        // Highlight active nav link based on current page
         const currentPage = window.location.pathname.split('/').pop() || 'about.html';
         const navLinks = document.querySelectorAll('#nav-placeholder a.nav-link');
         navLinks.forEach(link => {
@@ -265,18 +370,12 @@
 
       let currentIndex = 0;
 
-      // Helper: set active thumbnail styles
       function setActiveThumb(index) {
         thumbs.forEach((t, i) => {
           t.classList.toggle('active', i === index);
-          if (i === index) {
-            // ensure visible in scroll container
-            t.scrollIntoView({ block: 'center', behavior: 'smooth' });
-          }
+          if (i === index) { t.scrollIntoView({ block: 'center', behavior: 'smooth' }); }
         });
       }
-
-      // Open lightbox for index
       function openLightbox(index) {
         const t = thumbs[index];
         const img = t.querySelector('img');
@@ -288,23 +387,17 @@
         document.body.style.overflow = 'hidden';
         currentIndex = index;
         setActiveThumb(currentIndex);
-        // focus prev button for keyboard users
         prevBtn.focus();
       }
-
       function closeLightbox() {
         lightbox.classList.remove('show');
         lightbox.setAttribute('aria-hidden', 'true');
         document.body.style.overflow = '';
-        // return focus to the active thumb
         const active = thumbs[currentIndex];
         if (active) active.focus();
       }
-
       function showNext() { currentIndex = (currentIndex + 1) % thumbs.length; openLightbox(currentIndex); }
       function showPrev() { currentIndex = (currentIndex - 1 + thumbs.length) % thumbs.length; openLightbox(currentIndex); }
-
-      // Click / keyboard on thumbnails
       thumbs.forEach((t, i) => {
         t.addEventListener('click', () => openLightbox(i));
         t.addEventListener('keydown', (e) => {
@@ -313,25 +406,18 @@
           if (e.key === 'ArrowUp') { e.preventDefault(); const prev = Math.max(0, i-1); thumbs[prev].focus(); }
         });
       });
-
-      // Lightbox controls
       closeBtn.addEventListener('click', closeLightbox);
       nextBtn.addEventListener('click', showNext);
       prevBtn.addEventListener('click', showPrev);
-
-      // Click backdrop (outside image) closes
       lightbox.addEventListener('click', (e) => {
         if (e.target === lightbox || e.target === lightboxImg) closeLightbox();
       });
-
-      // Keyboard navigation
       document.addEventListener('keydown', (e) => {
         if (lightbox.classList.contains('show')) {
           if (e.key === 'Escape') closeLightbox();
           if (e.key === 'ArrowRight' || e.key === 'ArrowDown') { e.preventDefault(); showNext(); }
           if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); showPrev(); }
         } else {
-          // When gallery strip focused, up/down navigate thumbnails
           if (document.activeElement === sideGallery || sideGallery.contains(document.activeElement)) {
             if (e.key === 'ArrowDown') {
               e.preventDefault();
@@ -347,24 +433,14 @@
           }
         }
       });
-
-      // Improve mouse wheel scrolling when pointer is over gallery (faster, smoother feel)
       sideGallery.addEventListener('wheel', (e) => {
-        // allow normal horizontal scroll on small screens
         if (window.matchMedia('(max-width: 900px)').matches) return;
         e.preventDefault();
         sideGallery.scrollBy({ top: e.deltaY, behavior: 'smooth' });
       }, { passive: false });
-
-      // Initialize active thumb
       setActiveThumb(0);
-
-      // If you want the gallery to auto-open first image on load uncomment:
-      // openLightbox(0);
-
     })();
   </script>
-
   <script src="app.js"></script>
 </body>
 </html>
