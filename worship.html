@@ -13,6 +13,35 @@
   <meta property="og:url" content="https://www.bloomerypresbyterian.org/worship.html">
   <link rel="canonical" href="https://www.bloomerypresbyterian.org/worship.html">
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* Responsive container for the calendar embed */
+    .calendar-section {
+      margin: 30px 0;
+      text-align: center;
+    }
+    .calendar-embed {
+      max-width: 100%;
+      margin: 0 auto;
+      /* 4:3 aspect ratio (600/800) - adjust padding-bottom to change ratio */
+      position: relative;
+      padding-bottom: 75%;
+      height: 0;
+      overflow: hidden;
+      border-radius: 4px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    }
+    .calendar-embed iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    @media (min-width: 900px) {
+      .calendar-embed { max-width: 800px; }
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -52,6 +81,7 @@
         </p>
       </div>
     </div>
+
     <section aria-labelledby="youtube-heading" class="youtube-section" style="margin: 30px 0; text-align:center;">
       <h2 id="youtube-heading" style="font-size:1.25rem;">Worship Online with Us</h2>
       <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener" class="button" style="display:inline-block;">
@@ -62,6 +92,22 @@
         Watch recent worship services, sermons, and special events from Bloomery Presbyterian Church on our <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener">YouTube channel</a>.
       </p>
     </section>
+
+    <!-- Calendar section -->
+    <section aria-labelledby="calendar-heading" class="calendar-section">
+      <h2 id="calendar-heading" style="font-size:1.25rem;">Church Calendar</h2>
+      <p style="margin-bottom:12px;">See upcoming services, events, and activities on our Google Calendar.</p>
+      <div class="calendar-embed" role="region" aria-label="Bloomery Presbyterian Church Google Calendar">
+        <iframe
+          src="https://calendar.google.com/calendar/embed?src=bloomerypresbyterian%40gmail.com&ctz=America%2FNew_York"
+          title="Bloomery Presbyterian Church Calendar"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          scrolling="no">
+        </iframe>
+      </div>
+    </section>
+
   </main>
   <footer>
     <p>&copy; 2025 Bloomery Presbyterian Church. All rights reserved.</p>
