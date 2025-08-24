@@ -15,13 +15,10 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <!-- Dynamic banner -->
- <!-- hidden by default; will be shown only when there is an announcement -->
-<!-- hidden until we have an announcement -->
-<div id="top-banner"
-     style="display:none;background-color:#004080;color:white;text-align:center;padding:10px 0;font-weight:bold;font-size:1.1rem;"
-     aria-hidden="true"></div>
- 
+  <!-- Dynamic banner (hidden until announcement) -->
+  <div id="top-banner"
+       style="display:none;background-color:#004080;color:white;text-align:center;padding:10px 0;font-weight:bold;font-size:1.1rem;"
+       aria-hidden="true"></div>
 
   <header>
     <img src="images/church-logo.png" alt="Bloomery Presbyterian Church Logo" class="logo">
@@ -97,59 +94,101 @@
       .catch(error => console.error('Error loading navigation:', error));
   </script>
 
-  <!-- Banner update script -->
+  <!-- Updated Banner update script (with cache-busting, JSONP fallback, and hide-if-empty) -->
   <script>
-    // Compute whether white or black text gives better contrast for a hex color
+  (function(){
+    const BANNER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwvis5WPKKF7BlrIVRKihejeBda1MWYXKj4aDyxDrZHrjsYrVh6mxe-AevcGCUQEo20/exec';
+
     function bestTextColorForBackground(hex) {
       if (!hex) return '#ffffff';
-      // Accept '#rrggbb'
-      var m = hex.match(/^#?([0-9a-f]{6})$/i);
+      const m = hex.match(/^#?([0-9a-f]{6})$/i);
       if (!m) return '#ffffff';
-      var r = parseInt(m[1].substr(0,2), 16);
-      var g = parseInt(m[1].substr(2,2), 16);
-      var b = parseInt(m[1].substr(4,2), 16);
-      // Perceived luminance (0..1)
-      var lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+      const r = parseInt(m[1].substr(0,2),16);
+      const g = parseInt(m[1].substr(2,2),16);
+      const b = parseInt(m[1].substr(4,2),16);
+      const lum = (0.299*r + 0.587*g + 0.114*b) / 255;
       return lum > 0.6 ? '#000000' : '#ffffff';
     }
 
-    const BANNER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwvis5WPKKF7BlrIVRKihejeBda1MWYXKj4aDyxDrZHrjsYrVh6mxe-AevcGCUQEo20/exec';
+    // JSONP fallback: adds script tag callback=__bannerCB
+    function jsonpFetch(url) {
+      return new Promise((resolve, reject) => {
+        const cbName = '__bannerCB_' + Date.now();
+        window[cbName] = function(data) {
+          resolve(data);
+          cleanup();
+        };
+        function cleanup() {
+          delete window[cbName];
+          script.remove();
+        }
+        const script = document.createElement('script');
+        script.src = url + (url.includes('?') ? '&' : '?') + 'callback=' + cbName;
+        script.onerror = function(err){
+          cleanup();
+          reject(err);
+        };
+        document.body.appendChild(script);
+      });
+    }
+
+    async function fetchBanner() {
+      const url = BANNER_ENDPOINT + '?_ts=' + Date.now(); // cache-buster
+      try {
+        const res = await fetch(url, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Fetch failed: ' + res.status);
+        const data = await res.json();
+        return data;
+      } catch (err) {
+        console.warn('Fetch failed, trying JSONP fallback:', err);
+        try {
+          return await jsonpFetch(BANNER_ENDPOINT);
+        } catch (err2) {
+          console.error('JSONP fallback failed:', err2);
+          throw err2;
+        }
+      }
+    }
 
     async function updateBannerOnce() {
       const bannerEl = document.getElementById('top-banner');
       if (!bannerEl) return;
       try {
-        const res = await fetch(BANNER_ENDPOINT, { cache: 'no-store' });
-        if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
-        const data = await res.json();
+        const data = await fetchBanner();
+        console.log('Banner data:', data);
+        const text = data && data.banner ? String(data.banner).trim() : '';
+        const color = data && data.color ? data.color : '';
+        const textColor = data && data.textColor ? data.textColor : '';
 
-        // Update text
-        bannerEl.textContent = data.banner || '';
-
-        // Update background color if provided and valid
-        if (data.color) {
-          bannerEl.style.backgroundColor = data.color;
-          // Use provided textColor or auto-choose
-          if (data.textColor) {
-            bannerEl.style.color = data.textColor;
+        if (text.length > 0) {
+          bannerEl.style.display = '';
+          bannerEl.setAttribute('aria-hidden','false');
+          bannerEl.textContent = text;
+          if (color) {
+            bannerEl.style.backgroundColor = color;
+            bannerEl.style.color = textColor || bestTextColorForBackground(color);
           } else {
-            // if user didn't supply text color, pick white/black based on bg
-            bannerEl.style.color = bestTextColorForBackground(data.color);
+            bannerEl.style.backgroundColor = '#004080';
+            bannerEl.style.color = '#ffffff';
           }
         } else {
-          // Optional: revert to default color when none supplied
-          bannerEl.style.backgroundColor = '#004080';
-          bannerEl.style.color = '#ffffff';
+          // hide when empty
+          bannerEl.style.display = 'none';
+          bannerEl.setAttribute('aria-hidden','true');
+          bannerEl.textContent = '';
+          bannerEl.style.backgroundColor = '';
+          bannerEl.style.color = '';
         }
       } catch (err) {
-        console.error('Failed to update banner:', err);
-        // leave existing banner unchanged on error
+        console.error('Could not update banner:', err);
+        // keep banner hidden on error
       }
     }
 
+    // Initial fetch + polling
     updateBannerOnce();
-    // Poll for changes (adjust interval as desired)
-    setInterval(updateBannerOnce, 30000);
+    setInterval(updateBannerOnce, 30000); // adjust as needed
+  })();
   </script>
 
   <script src="app.js"></script>
