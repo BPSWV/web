@@ -15,9 +15,12 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div style="background-color: #004080; color: white; text-align: center; padding: 10px 0; font-weight: bold; font-size: 1.1rem;">
- 
+  <!-- Dynamic banner -->
+  <div id="top-banner"
+       style="background-color:#004080;color:white;text-align:center;padding:10px 0;font-weight:bold;font-size:1.1rem;">
+    Loading announcement...
   </div>
+
   <header>
     <img src="images/church-logo.png" alt="Bloomery Presbyterian Church Logo" class="logo">
     <h1>Bloomery Presbyterian Church</h1>
@@ -90,6 +93,61 @@
         });
       })
       .catch(error => console.error('Error loading navigation:', error));
+  </script>
+
+  <!-- Banner update script -->
+  <script>
+    // Compute whether white or black text gives better contrast for a hex color
+    function bestTextColorForBackground(hex) {
+      if (!hex) return '#ffffff';
+      // Accept '#rrggbb'
+      var m = hex.match(/^#?([0-9a-f]{6})$/i);
+      if (!m) return '#ffffff';
+      var r = parseInt(m[1].substr(0,2), 16);
+      var g = parseInt(m[1].substr(2,2), 16);
+      var b = parseInt(m[1].substr(4,2), 16);
+      // Perceived luminance (0..1)
+      var lum = (0.299*r + 0.587*g + 0.114*b) / 255;
+      return lum > 0.6 ? '#000000' : '#ffffff';
+    }
+
+    const BANNER_ENDPOINT = 'https://script.google.com/macros/s/AKfycbwvis5WPKKF7BlrIVRKihejeBda1MWYXKj4aDyxDrZHrjsYrVh6mxe-AevcGCUQEo20/exec';
+
+    async function updateBannerOnce() {
+      const bannerEl = document.getElementById('top-banner');
+      if (!bannerEl) return;
+      try {
+        const res = await fetch(BANNER_ENDPOINT, { cache: 'no-store' });
+        if (!res.ok) throw new Error('Network response was not ok: ' + res.status);
+        const data = await res.json();
+
+        // Update text
+        bannerEl.textContent = data.banner || '';
+
+        // Update background color if provided and valid
+        if (data.color) {
+          bannerEl.style.backgroundColor = data.color;
+          // Use provided textColor or auto-choose
+          if (data.textColor) {
+            bannerEl.style.color = data.textColor;
+          } else {
+            // if user didn't supply text color, pick white/black based on bg
+            bannerEl.style.color = bestTextColorForBackground(data.color);
+          }
+        } else {
+          // Optional: revert to default color when none supplied
+          bannerEl.style.backgroundColor = '#004080';
+          bannerEl.style.color = '#ffffff';
+        }
+      } catch (err) {
+        console.error('Failed to update banner:', err);
+        // leave existing banner unchanged on error
+      }
+    }
+
+    updateBannerOnce();
+    // Poll for changes (adjust interval as desired)
+    setInterval(updateBannerOnce, 30000);
   </script>
 
   <script src="app.js"></script>
