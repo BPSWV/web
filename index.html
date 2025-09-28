@@ -16,11 +16,12 @@
 </head>
 <body>
   <!-- Permanent Banner -->
-<div id="permanent-banner"
-     style="background-color:#800000;color:white;text-align:center;
-            padding:12px 0;font-weight:bold;font-size:1.2rem;">
-  Living Acts of Kindness
-</div>
+  <div id="permanent-banner"
+       style="background-color:#800000;color:white;text-align:center;
+              padding:12px 0;font-weight:bold;font-size:1.2rem;">
+    Living Acts of Kindness
+  </div>
+
   <!-- Dynamic banner (hidden until announcement) -->
   <div id="top-banner"
        style="display:none;background-color:#004080;color:white;text-align:center;padding:10px 0;font-weight:bold;font-size:1.1rem;"
@@ -51,6 +52,14 @@
         <p><strong>Location:</strong> <a href="https://maps.app.goo.gl/jth4yuWprP993q1j6" target="_blank" rel="noopener">127 Bloomery Pike, Bloomery, WV 26817</a></p>
         <p><strong>All are welcome!</strong></p>
       </div>
+
+      <!-- Church News & Announcements Callout Box -->
+      <section id="church-news" class="news-callout" style="background-color:#f8f9fa;border:2px solid #004080;border-radius:8px;padding:20px;margin:30px 0;">
+        <h3 style="color:#004080;margin-top:0;font-size:1.3rem;">📢 Church News & Announcements</h3>
+        <div id="news-items">
+          <!-- News items will be populated by JavaScript -->
+        </div>
+      </section>
       <section aria-labelledby="youtube-heading" class="youtube-section" style="margin: 30px 0; text-align:center;">
         <h2 id="youtube-heading" style="font-size:1.25rem;">Watch Our Services on YouTube</h2>
         <a href="https://www.youtube.com/channel/UCS2kIs8oVJ1U25cV7_N-b4Q" target="_blank" rel="noopener" class="button" style="display:inline-block;">
@@ -194,6 +203,47 @@
     // Initial fetch + polling
     updateBannerOnce();
     setInterval(updateBannerOnce, 30000); // adjust as needed
+  })();
+  </script>
+
+  <!-- Church News with Auto-Expiration -->
+  <script>
+  (function(){
+    const newsItems = [
+      {
+        text: "Trash Pickup: Tuesday Sept. 30, 2025. If you can help, meet at Omps Grocery at 8:00 AM",
+        expires: "2025-10-01" // YYYY-MM-DD format
+      },
+      {
+        text: "Celebrating Worldwide Communion - Sunday, October 5th during 10:00 AM Worship", 
+        expires: "2025-10-06"
+      },
+      {
+        text: "Pastor Appreciation/Baptism Dinner - Sunday October 19th following 10 AM Worship. Bring a covered dish and join the celebration",
+        expires: "2025-10-20" // Long-term announcement
+      }
+    ];
+
+    function updateNews() {
+      const today = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+      const newsContainer = document.getElementById('news-items');
+      
+      const activeNews = newsItems.filter(item => item.expires >= today);
+      
+      if (activeNews.length > 0) {
+        newsContainer.innerHTML = '<ul style="margin:0;padding-left:20px;">' + 
+          activeNews.map(item => `<li style="margin-bottom:8px;">${item.text}</li>`).join('') + 
+          '</ul>';
+      } else {
+        newsContainer.innerHTML = '<p style="font-style:italic;color:#666;">No current announcements.</p>';
+      }
+    }
+
+    // Update news on page load
+    updateNews();
+    
+    // Optional: Check daily for expired items
+    setInterval(updateNews, 24 * 60 * 60 * 1000); // 24 hours
   })();
   </script>
 
